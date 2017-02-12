@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+    <link rel="stylesheet" href="test.css" type="text/css"/>
+    <script src="jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<div class="progressRound">
+    <!--进度末尾的半圆角-->
+    <div class="ltRound"></div>
+    <!--有颜色的半圆-->
+    <div class="halfColorRound"></div>
+    <!--无颜色的半圆，向下-->
+    <div class="halfRoundUp"></div>
+    <!--无颜色的半圆，向上-->
+    <div class="halfRoundDown"></div>
+    <!--有颜色的圆-->
+    <div class="colorRound"></div>
+    <!--中间的图像-->
+    <img src="head.jpg" alt="">
+</div>
+<script>
+    $(document).ready(function () {
+        /**
+         * 设定圆形进度条进度
+         * @param deg：需要设定的角度值
+         */
+        function setRoundProgress(deg) {
+            if (isNaN(parseInt(deg))) {
+                console.log('error');
+                return;
+            }
+            if (deg > 360) deg = 360;
+            else if (deg < 0) deg = 0;
+            var set = function (d, $round) {
+                d -= 30;
+                $round.css({
+                    '-webkit-transform': 'rotate(' + d + 'deg)',
+                    '-moz-transform': 'rotate(' + d + 'deg)',
+                    '-ms-transform': 'rotate(' + d + 'deg)',
+                    '-o-transform': 'rotate(' + d + 'deg)',
+                    'transform': 'rotate(' + d + 'deg)'
+                });
+            };
+            if (deg <= 180) {
+                set(deg, $('.halfRoundDown'));
+            } else {
+                $('.halfRoundDown').css('opacity', 0);
+                set(deg - 180, $('.halfRoundUp'));
+            }
+            set(deg, $('.ltRound'));
+        }
+
+        setRoundProgress(234);
+
+
+    })
+</script>
+</body>
+</html>
